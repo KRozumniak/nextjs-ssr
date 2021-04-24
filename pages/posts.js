@@ -1,19 +1,44 @@
+import {useState, useEffect} from "react";
+import Link from "next/link";
 import Head from "next/head";
 import {MainLayout} from "../components/MainLayout";
 
-export default function Posts() {
+export default function Posts({posts}) {
+  // const [posts, setPosts] = useState([])
+  //
+  // useEffect(() => {
+  //   async function load() {
+  //     const response = await fetch('http://localhost:4200/posts')
+  //     const json = await response.json()
+  //     setPosts(json)
+  //   }
+  //
+  //   load()
+  // }, [])
+
   return (
     <MainLayout>
       <Head>
         <title>Posts page | Next</title>
-        <meta name="keywords" content="next, javascript, nextjs, react"></meta>
-        <meta name="description" content="this is next js"></meta>
-        <meta charSet="utf-8"/>
       </Head>
       <h1>Posts Page</h1>
+      <ul>
+        {posts.map(post => (
+          <li key={post.id}>
+            <Link href={`/post/[id]`} as={`/post/${post.id}`}>
+              <a>{post.title}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </MainLayout>
   )
 }
 
-// /posts
-// /post/42
+Posts.getInitialProps = async () => {
+  const response = await fetch('http://localhost:4200/posts')
+  const posts = await response.json()
+  return {
+    posts: posts
+  }
+}
