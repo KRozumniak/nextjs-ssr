@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import Link from 'next/link'
 import {MainLayout} from "../../components/MainLayout";
 import {useRouter} from "next/router";
 
-export default function Post({ post: serverPost }) {
+export default function Post({post: serverPost}) {
   const [post, setPost] = useState(serverPost)
   const router = useRouter()
 
@@ -32,7 +32,7 @@ export default function Post({ post: serverPost }) {
       <h1>{post.title}</h1>
       <hr/>
       <p>{post.body}</p>
-        <Link href={'/posts'}><a>Back to all Posts</a></Link>
+      <Link href={'/posts'}><a>Back to all Posts</a></Link>
     </MainLayout>
   )
 }
@@ -47,3 +47,14 @@ Post.getInitialProps = async ({ query, req }) => {
     post
   }
 }
+
+// export async function getServerSideProps({query, req}) {
+//   // if (!req) {
+//   //   return {post: null}
+//   // }
+//   const response = await fetch(`http://localhost:4200/posts/${query.id}`)
+//   const post = await response.json()
+//   return {
+//     props: { post }
+//   }
+// }
