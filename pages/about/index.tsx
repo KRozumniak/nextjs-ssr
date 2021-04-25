@@ -1,8 +1,12 @@
 import Router from 'next/router'
 import {MainLayout} from "../../components/MainLayout";
+import {MyPost} from "../../interfaces/post";
 
-export default function About({title}) {
+interface PostPageProps {
+    title: MyPost
+}
 
+export default function About({title}: PostPageProps) {
   const linkClickHandler = () => {
     Router.push('/')
   }
